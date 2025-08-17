@@ -3,40 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Página Simple</title>
+    <title>Página con Colores</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
             padding: 20px;
-            background-color: #f5f5f5;
-        }
-        h1 {
-            color: #2c3e50;
-        }
-        p {
-            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .container {
             background-color: white;
-            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 600px;
+            text-align: center;
+        }
+        h1 {
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+        p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .color-box {
+            display: flex;
+            justify-content: space-around;
+            margin: 25px 0;
+        }
+        .color {
+            width: 80px;
+            height: 80px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn {
+            background-color: #4ecdc4;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn:hover {
+            background-color: #ff6b6b;
+            transform: translateY(-2px);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>¡Hola Mundo!</h1>
-        <p>Este es un ejemplo básico de una página HTML.</p>
-        <p>Puedes editar este código y añadir más elementos como quieras.</p>
-        <button onclick="alert('¡Botón clickeado!')">Haz clic aquí</button>
+        <h1>¡Página con Colores!</h1>
+        <p>Este es un ejemplo de HTML con colores vibrantes y un diseño moderno.</p>
+        
+        <div class="color-box">
+            <div class="color" style="background-color: #ff6b6b;">#FF6B6B</div>
+            <div class="color" style="background-color: #4ecdc4;">#4ECDC4</div>
+            <div class="color" style="background-color: #ffbe76;">#FFBE76</div>
+            <div class="color" style="background-color: #576574;">#576574</div>
+        </div>
+        
+        <button class="btn" onclick="alert('¡Gracias por hacer clic! 🌈')">Presiona aquí</button>
     </div>
 
     <script>
-        // Pequeño ejemplo de JavaScript
-        console.log("La página se ha cargado correctamente");
+        console.log("Página cargada correctamente 🚀");
     </script>
 </body>
 </html>
