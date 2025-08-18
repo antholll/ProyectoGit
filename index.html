@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página con Colores</title>
+    <title>Página con Animaciones</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -14,6 +14,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow-x: hidden;
         }
         .container {
             background-color: white;
@@ -22,21 +23,25 @@
             padding: 30px;
             max-width: 600px;
             text-align: center;
+            animation: fadeIn 1s ease-out;
         }
         h1 {
             color: #ff6b6b;
             margin-bottom: 20px;
             font-size: 2.5em;
+            animation: slideIn 0.8s ease-out;
         }
         p {
             color: #555;
             line-height: 1.6;
             margin-bottom: 20px;
+            animation: fadeIn 1.5s ease-out;
         }
         .color-box {
             display: flex;
             justify-content: space-around;
             margin: 25px 0;
+            animation: bounceIn 1s ease-out;
         }
         .color {
             width: 80px;
@@ -48,6 +53,10 @@
             color: white;
             font-weight: bold;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .color:hover {
+            transform: scale(1.1) rotate(5deg);
         }
         .btn {
             background-color: #4ecdc4;
@@ -59,17 +68,44 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: pulse 2s infinite;
         }
         .btn:hover {
             background-color: #ff6b6b;
             transform: translateY(-2px);
+            animation: none;
+        }
+
+        /* Animaciones CSS */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        @keyframes colorChange {
+            0% { background-color: #4ecdc4; }
+            50% { background-color: #ff6b6b; }
+            100% { background-color: #4ecdc4; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>¡Página con Colores!</h1>
-        <p>Este es un ejemplo de HTML con colores vibrantes y un diseño moderno.</p>
+        <h1>¡Página Animada!</h1>
+        <p>Este ejemplo incluye varias animaciones CSS y efectos interactivos.</p>
         
         <div class="color-box">
             <div class="color" style="background-color: #ff6b6b;">#FF6B6B</div>
@@ -78,11 +114,35 @@
             <div class="color" style="background-color: #576574;">#576574</div>
         </div>
         
-        <button class="btn" onclick="alert('¡Gracias por hacer clic! 🌈')">Presiona aquí</button>
+        <button class="btn" id="magicBtn">¡Toca Magia!</button>
     </div>
 
     <script>
-        console.log("Página cargada correctamente 🚀");
+        // Efecto JavaScript al hacer clic
+        document.getElementById('magicBtn').addEventListener('click', function() {
+            // Animación de los cuadros de color
+            const colors = document.querySelectorAll('.color');
+            colors.forEach((color, index) => {
+                setTimeout(() => {
+                    color.style.animation = 'bounceIn 0.5s ease-out';
+                    // Resetear la animación después de que termine
+                    setTimeout(() => {
+                        color.style.animation = '';
+                    }, 500);
+                }, index * 200);
+            });
+
+            // Cambiar el color del botón temporalmente
+            this.style.animation = 'colorChange 1s';
+            setTimeout(() => {
+                this.style.animation = 'pulse 2s infinite';
+            }, 1000);
+
+            // Mensaje emergente
+            alert('¡Efecto mágico activado! ✨');
+        });
+
+        console.log("Página animada lista 🎬");
     </script>
 </body>
 </html>
