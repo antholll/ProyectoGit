@@ -3,27 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página con Animaciones</title>
+    <title>Pelota Rebotando</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             margin: 0;
             padding: 20px;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow-x: hidden;
+            overflow: hidden;
+            position: relative;
         }
         .container {
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.95);
             border-radius: 12px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
             padding: 30px;
             max-width: 600px;
             text-align: center;
             animation: fadeIn 1s ease-out;
+            position: relative;
+            z-index: 2;
         }
         h1 {
             color: #ff6b6b;
@@ -37,12 +40,94 @@
             margin-bottom: 20px;
             animation: fadeIn 1.5s ease-out;
         }
+
+        /* Pelota rebotando */
+        .bouncing-ball {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle at 20px 20px, #ff6b6b, #c0392b);
+            border-radius: 50%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            animation: bounce 4s infinite alternate ease-in-out;
+            z-index: 1;
+        }
+
+        /* Sombras de la pelota */
+        .ball-shadow {
+            position: fixed;
+            width: 40px;
+            height: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+            animation: shadow 4s infinite alternate ease-in-out;
+            z-index: 1;
+        }
+
+        /* Animaciones */
+        @keyframes bounce {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+                animation-timing-function: ease-in;
+            }
+            25% {
+                transform: translate(calc(100vw - 100px), calc(100vh - 100px)) rotate(180deg);
+                animation-timing-function: ease-out;
+            }
+            50% {
+                transform: translate(calc(100vw - 100px), 0) rotate(360deg);
+                animation-timing-function: ease-in;
+            }
+            75% {
+                transform: translate(0, calc(100vh - 100px)) rotate(540deg);
+                animation-timing-function: ease-out;
+            }
+            100% {
+                transform: translate(0, 0) rotate(720deg);
+                animation-timing-function: ease-in;
+            }
+        }
+
+        @keyframes shadow {
+            0% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+            25% {
+                transform: scale(0.8);
+                opacity: 0.4;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.8;
+            }
+            75% {
+                transform: scale(0.7);
+                opacity: 0.3;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
         .color-box {
             display: flex;
             justify-content: space-around;
             margin: 25px 0;
             animation: bounceIn 1s ease-out;
         }
+
         .color {
             width: 80px;
             height: 80px;
@@ -55,9 +140,11 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
         }
+
         .color:hover {
             transform: scale(1.1) rotate(5deg);
         }
+
         .btn {
             background-color: #4ecdc4;
             color: white;
@@ -68,44 +155,41 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            animation: pulse 2s infinite;
         }
+
         .btn:hover {
             background-color: #ff6b6b;
             transform: translateY(-2px);
-            animation: none;
         }
 
-        /* Animaciones CSS */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes slideIn {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
         @keyframes bounceIn {
             0% { transform: scale(0.8); opacity: 0; }
             50% { transform: scale(1.05); }
             100% { transform: scale(1); opacity: 1; }
         }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+
+        .controls {
+            margin-top: 20px;
         }
-        @keyframes colorChange {
-            0% { background-color: #4ecdc4; }
-            50% { background-color: #ff6b6b; }
-            100% { background-color: #4ecdc4; }
+
+        .speed-control {
+            margin: 10px 0;
+        }
+
+        input[type="range"] {
+            width: 200px;
+            margin: 0 10px;
         }
     </style>
 </head>
 <body>
+    <!-- Pelota rebotando -->
+    <div class="bouncing-ball" id="ball"></div>
+    <div class="ball-shadow" id="shadow"></div>
+
     <div class="container">
-        <h1>¡Página Animada!</h1>
-        <p>Este ejemplo incluye varias animaciones CSS y efectos interactivos.</p>
+        <h1>¡Pelota Rebotando!</h1>
+        <p>Mira la pelota rebotar por las esquinas de la pantalla con transformaciones CSS.</p>
         
         <div class="color-box">
             <div class="color" style="background-color: #ff6b6b;">#FF6B6B</div>
@@ -113,36 +197,63 @@
             <div class="color" style="background-color: #ffbe76;">#FFBE76</div>
             <div class="color" style="background-color: #576574;">#576574</div>
         </div>
-        
-        <button class="btn" id="magicBtn">¡Toca Magia!</button>
+
+        <div class="controls">
+            <div class="speed-control">
+                <label>Velocidad: <span id="speed-value">4</span>s</label>
+                <input type="range" id="speed-control" min="1" max="8" value="4" step="0.5">
+            </div>
+        </div>
+
+        <button class="btn" id="toggle-btn">Pausar/Reanudar</button>
     </div>
 
     <script>
-        // Efecto JavaScript al hacer clic
-        document.getElementById('magicBtn').addEventListener('click', function() {
-            // Animación de los cuadros de color
-            const colors = document.querySelectorAll('.color');
-            colors.forEach((color, index) => {
-                setTimeout(() => {
-                    color.style.animation = 'bounceIn 0.5s ease-out';
-                    // Resetear la animación después de que termine
-                    setTimeout(() => {
-                        color.style.animation = '';
-                    }, 500);
-                }, index * 200);
-            });
+        const ball = document.getElementById('ball');
+        const shadow = document.getElementById('shadow');
+        const speedControl = document.getElementById('speed-control');
+        const speedValue = document.getElementById('speed-value');
+        const toggleBtn = document.getElementById('toggle-btn');
 
-            // Cambiar el color del botón temporalmente
-            this.style.animation = 'colorChange 1s';
-            setTimeout(() => {
-                this.style.animation = 'pulse 2s infinite';
-            }, 1000);
+        let isPaused = false;
+        let currentSpeed = 4;
 
-            // Mensaje emergente
-            alert('¡Efecto mágico activado! ✨');
+        // Control de velocidad
+        speedControl.addEventListener('input', function() {
+            currentSpeed = 9 - this.value; // Invertir para que mayor valor = más lento
+            speedValue.textContent = currentSpeed.toFixed(1);
+            
+            if (!isPaused) {
+                ball.style.animationDuration = currentSpeed + 's';
+                shadow.style.animationDuration = currentSpeed + 's';
+            }
         });
 
-        console.log("Página animada lista 🎬");
+        // Control de pausa/reanudar
+        toggleBtn.addEventListener('click', function() {
+            isPaused = !isPaused;
+            
+            if (isPaused) {
+                ball.style.animationPlayState = 'paused';
+                shadow.style.animationPlayState = 'paused';
+                this.textContent = 'Reanudar';
+            } else {
+                ball.style.animationPlayState = 'running';
+                shadow.style.animationPlayState = 'running';
+                this.textContent = 'Pausar';
+            }
+        });
+
+        // Cambiar color de la pelota aleatoriamente
+        setInterval(() => {
+            if (!isPaused) {
+                const colors = ['#ff6b6b', '#4ecdc4', '#ffbe76', '#54a0ff', '#a29bfe', '#fd79a8'];
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                ball.style.background = `radial-gradient(circle at 20px 20px, ${randomColor}, ${randomColor}44)`;
+            }
+        }, 2000);
+
+        console.log("Pelota rebotando 🏀");
     </script>
 </body>
 </html>
