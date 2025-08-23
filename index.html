@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página con Selector de Temas</title>
+    <title>Página con Modo Auto Claro/Oscuro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -20,9 +20,11 @@
             --text-color: #333;
             --card-bg: #ffffff;
             --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --navbar-bg: rgba(255, 255, 255, 0.95);
+            --shadow-color: rgba(0, 0, 0, 0.1);
         }
 
-        .theme-dark {
+        [data-theme="dark"] {
             --primary-color: #ff7eb3;
             --secondary-color: #7afcff;
             --accent-color: #feff9c;
@@ -30,6 +32,8 @@
             --text-color: #ffffff;
             --card-bg: #2d2d2d;
             --gradient: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            --navbar-bg: rgba(45, 45, 45, 0.95);
+            --shadow-color: rgba(0, 0, 0, 0.3);
         }
 
         .theme-nature {
@@ -84,9 +88,10 @@
             background: var(--card-bg);
             border-radius: 50px;
             padding: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 20px var(--shadow-color);
             display: flex;
             gap: 10px;
+            align-items: center;
         }
 
         .theme-btn {
@@ -112,17 +117,79 @@
         .theme-sunset-btn { background: linear-gradient(135deg, #ff8c42, #ff3c38); }
         .theme-ocean-btn { background: linear-gradient(135deg, #3182ce, #63b3ed); }
 
+        /* Modo Auto */
+        .auto-toggle {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+            padding-left: 15px;
+            border-left: 2px solid var(--text-color);
+        }
+
+        .auto-label {
+            font-size: 0.9em;
+            margin-right: 8px;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
         /* Menú Responsivo */
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--navbar-bg);
             backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 20px var(--shadow-color);
             z-index: 1000;
             padding: 0 20px;
+            transition: all 0.3s ease;
         }
 
         .nav-container {
@@ -235,7 +302,7 @@
         .container {
             background-color: var(--card-bg);
             border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 16px var(--shadow-color);
             padding: 30px;
             text-align: center;
             animation: fadeIn 1s ease-out;
@@ -278,7 +345,7 @@
             background: var(--card-bg);
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px var(--shadow-color);
             text-align: center;
             transition: transform 0.3s ease;
         }
@@ -416,7 +483,7 @@
                 left: -100%;
                 top: 70px;
                 flex-direction: column;
-                background: rgba(255, 255, 255, 0.98);
+                background: var(--navbar-bg);
                 backdrop-filter: blur(10px);
                 width: 100%;
                 text-align: center;
@@ -458,12 +525,23 @@
                 top: 70px;
                 right: 10px;
                 flex-wrap: wrap;
-                max-width: 100px;
+                max-width: 120px;
             }
 
             .theme-btn {
                 width: 30px;
                 height: 30px;
+            }
+
+            .auto-toggle {
+                flex-direction: column;
+                gap: 5px;
+                border-left: none;
+                border-top: 2px solid var(--text-color);
+                padding-left: 0;
+                padding-top: 10px;
+                margin-left: 0;
+                width: 100%;
             }
         }
 
@@ -477,7 +555,7 @@
             font-size: 1em;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px var(--shadow-color);
             margin: 5px;
         }
 
@@ -502,10 +580,18 @@
         .hidden {
             display: none !important;
         }
+
+        /* Indicador de modo auto */
+        .auto-indicator {
+            font-size: 0.8em;
+            margin-top: 5px;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
     </style>
 </head>
 <body class="theme-default">
-    <!-- Selector de Temas -->
+    <!-- Selector de Temas con Modo Auto -->
     <div class="theme-selector">
         <button class="theme-btn theme-default" onclick="changeTheme('default')" title="Tema Default">
             <i class="fas fa-palette"></i>
@@ -516,12 +602,15 @@
         <button class="theme-btn theme-nature-btn" onclick="changeTheme('nature')" title="Tema Naturaleza">
             <i class="fas fa-leaf"></i>
         </button>
-        <button class="theme-btn theme-sunset-btn" onclick="changeTheme('sunset')" title="Tema Atardecer">
-            <i class="fas fa-sun"></i>
-        </button>
-        <button class="theme-btn theme-ocean-btn" onclick="changeTheme('ocean')" title="Tema Océano">
-            <i class="fas fa-water"></i>
-        </button>
+        
+        <div class="auto-toggle">
+            <span class="auto-label">Auto</span>
+            <label class="switch">
+                <input type="checkbox" id="auto-theme-toggle">
+                <span class="slider"></span>
+            </label>
+            <div class="auto-indicator" id="auto-indicator">OFF</div>
+        </div>
     </div>
 
     <!-- Menú Responsivo -->
@@ -568,13 +657,19 @@
     <!-- Contenido Principal -->
     <div class="main-content">
         <div class="container">
-            <h1>¡Selector de Temas de Colores! 🎨</h1>
-            <p>Usa los botones de arriba a la derecha para cambiar el tema de colores de la página.</p>
+            <h1>¡Modo Auto Claro/Oscuro! 🌓</h1>
+            <p>Ahora la página detecta automáticamente la preferencia de tu sistema y se adapta.</p>
+            <p>Usa el interruptor "Auto" para activar/desactivar esta función.</p>
             
             <div class="color-box">
                 <div class="color" style="background-color: var(--primary-color);">Primario</div>
                 <div class="color" style="background-color: var(--secondary-color);">Secundario</div>
                 <div class="color" style="background-color: var(--accent-color);">Acento</div>
+            </div>
+
+            <div class="info-box">
+                <h3>¿Cómo funciona?</h3>
+                <p>El modo auto detecta si tu sistema operativo está configurado en modo claro u oscuro y aplica el tema correspondiente automáticamente.</p>
             </div>
 
             <div class="controls">
@@ -591,42 +686,28 @@
         <!-- Sección de Características -->
         <section id="features" class="section">
             <div class="container">
-                <h2>Temas Disponibles</h2>
+                <h2>Características del Modo Auto</h2>
                 <div class="features">
                     <div class="feature-card">
                         <div class="feature-icon">
-                            <i class="fas fa-palette"></i>
+                            <i class="fas fa-robot"></i>
                         </div>
-                        <h3>Tema Default</h3>
-                        <p>Colores vibrantes y modernos con buen contraste.</p>
+                        <h3>Detección Automática</h3>
+                        <p>Detecta la preferencia de tu sistema operativo sin necesidad de configuración.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">
-                            <i class="fas fa-moon"></i>
+                            <i class="fas fa-sync-alt"></i>
                         </div>
-                        <h3>Tema Oscuro</h3>
-                        <p>Perfecto para uso nocturno, reduce la fatiga visual.</p>
+                        <h3>Cambio en Tiempo Real</h3>
+                        <p>Si cambias el tema de tu sistema, la página se actualiza automáticamente.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">
-                            <i class="fas fa-leaf"></i>
+                            <i class="fas fa-user-cog"></i>
                         </div>
-                        <h3>Tema Naturaleza</h3>
-                        <p>Colores verdes y naturales, relajante y fresco.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-sun"></i>
-                        </div>
-                        <h3>Tema Atardecer</h3>
-                        <p>Tonos cálidos y acogedores como un atardecer.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-water"></i>
-                        </div>
-                        <h3>Tema Océano</h3>
-                        <p>Azules profundos y tranquilos como el mar.</p>
+                        <h3>Control Manual</h3>
+                        <p>Puedes desactivar el modo auto y elegir manualmente en cualquier momento.</p>
                     </div>
                 </div>
             </div>
@@ -655,15 +736,82 @@
     <div class="ball-shadow" id="shadow"></div>
 
     <script>
-        // Función para cambiar el tema
-        function changeTheme(themeName) {
-            document.body.className = 'theme-' + themeName;
+        // Variables globales
+        let autoThemeEnabled = false;
+        let systemPreference = null;
+
+        // Detectar preferencia del sistema
+        function detectSystemPreference() {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                return 'dark';
+            }
+            return 'default';
+        }
+
+        // Configurar modo auto
+        function setupAutoTheme() {
+            const autoToggle = document.getElementById('auto-theme-toggle');
+            const autoIndicator = document.getElementById('auto-indicator');
             
-            // Guardar preferencia en localStorage
+            // Cargar preferencia guardada
+            const savedAutoMode = localStorage.getItem('autoThemeEnabled');
+            if (savedAutoMode === 'true') {
+                autoThemeEnabled = true;
+                autoToggle.checked = true;
+                autoIndicator.textContent = 'ON';
+                applySystemTheme();
+            }
+
+            // Escuchar cambios en el toggle
+            autoToggle.addEventListener('change', function() {
+                autoThemeEnabled = this.checked;
+                autoIndicator.textContent = this.checked ? 'ON' : 'OFF';
+                localStorage.setItem('autoThemeEnabled', this.checked);
+                
+                if (this.checked) {
+                    applySystemTheme();
+                } else {
+                    showThemeNotification('Modo manual activado');
+                }
+            });
+
+            // Escuchar cambios en la preferencia del sistema
+            if (window.matchMedia) {
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                    if (autoThemeEnabled) {
+                        systemPreference = e.matches ? 'dark' : 'default';
+                        applySystemTheme();
+                    }
+                });
+            }
+        }
+
+        // Aplicar tema del sistema
+        function applySystemTheme() {
+            if (!autoThemeEnabled) return;
+            
+            systemPreference = detectSystemPreference();
+            changeTheme(systemPreference);
+            showThemeNotification(`Modo auto: ${systemPreference === 'dark' ? 'Oscuro' : 'Claro'}`);
+        }
+
+        // Función para cambiar el tema (modificada para respetar modo auto)
+        function changeTheme(themeName) {
+            // Si el modo auto está activado y se intenta cambiar manualmente, desactivar auto
+            if (autoThemeEnabled && themeName !== systemPreference) {
+                document.getElementById('auto-theme-toggle').checked = false;
+                autoThemeEnabled = false;
+                document.getElementById('auto-indicator').textContent = 'OFF';
+                localStorage.setItem('autoThemeEnabled', 'false');
+                showThemeNotification('Modo auto desactivado');
+            }
+            
+            document.body.className = 'theme-' + themeName;
             localStorage.setItem('selectedTheme', themeName);
             
-            // Mostrar notificación
-            showThemeNotification(themeName);
+            if (!autoThemeEnabled) {
+                showThemeNotification(themeName);
+            }
         }
 
         // Mostrar notificación del tema
@@ -678,7 +826,7 @@
                 color: var(--text-color);
                 padding: 15px 25px;
                 border-radius: 50px;
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+                box-shadow: 0 4px 20px var(--shadow-color);
                 z-index: 1002;
                 font-weight: bold;
                 display: flex;
@@ -687,16 +835,18 @@
             `;
             
             const themeNames = {
-                'default': 'Default',
-                'dark': 'Oscuro',
-                'nature': 'Naturaleza',
-                'sunset': 'Atardecer',
-                'ocean': 'Océano'
+                'default': 'Tema Default',
+                'dark': 'Tema Oscuro',
+                'nature': 'Tema Naturaleza',
+                'sunset': 'Tema Atardecer',
+                'ocean': 'Tema Océano',
+                'Modo auto activado': 'Modo Auto Activado',
+                'Modo manual activado': 'Modo Manual Activado'
             };
             
             notification.innerHTML = `
                 <i class="fas fa-check-circle" style="color: var(--primary-color);"></i>
-                Tema cambiado a: ${themeNames[themeName]}
+                ${themeNames[themeName] || themeName}
             `;
             
             document.body.appendChild(notification);
@@ -814,6 +964,8 @@
                 startCountdown();
             }, 1000);
             loadSavedTheme();
+            setupAutoTheme();
+            systemPreference = detectSystemPreference();
         });
 
         // Smooth scroll para los links del menú
