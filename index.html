@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página con Modo Auto Claro/Oscuro</title>
+    <title>Página con Modo Oscuro Real</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -17,23 +17,26 @@
             --secondary-color: #4ecdc4;
             --accent-color: #667eea;
             --background-color: #f8f9fa;
-            --text-color: #333;
+            --text-color: #333333;
             --card-bg: #ffffff;
-            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --navbar-bg: rgba(255, 255, 255, 0.95);
             --shadow-color: rgba(0, 0, 0, 0.1);
+            --border-color: #e0e0e0;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
+        /* MODO OSCURO VERDADERO - BLANCO Y NEGRO */
         [data-theme="dark"] {
-            --primary-color: #ff7eb3;
-            --secondary-color: #7afcff;
-            --accent-color: #feff9c;
-            --background-color: #1a1a1a;
+            --primary-color: #ffffff;
+            --secondary-color: #cccccc;
+            --accent-color: #888888;
+            --background-color: #121212;
             --text-color: #ffffff;
-            --card-bg: #2d2d2d;
-            --gradient: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-            --navbar-bg: rgba(45, 45, 45, 0.95);
-            --shadow-color: rgba(0, 0, 0, 0.3);
+            --card-bg: #1e1e1e;
+            --navbar-bg: rgba(30, 30, 30, 0.98);
+            --shadow-color: rgba(0, 0, 0, 0.4);
+            --border-color: #333333;
+            --gradient: linear-gradient(135deg, #000000 0%, #2a2a2a 100%);
         }
 
         .theme-nature {
@@ -92,6 +95,7 @@
             display: flex;
             gap: 10px;
             align-items: center;
+            border: 1px solid var(--border-color);
         }
 
         .theme-btn {
@@ -105,17 +109,23 @@
             align-items: center;
             justify-content: center;
             font-size: 1.2em;
+            border: 2px solid var(--border-color);
         }
 
         .theme-btn:hover {
             transform: scale(1.1);
+            box-shadow: 0 0 15px var(--primary-color);
         }
 
-        .theme-default { background: linear-gradient(135deg, #ff6b6b, #4ecdc4); }
-        .theme-dark-btn { background: linear-gradient(135deg, #ff7eb3, #7afcff); }
-        .theme-nature-btn { background: linear-gradient(135deg, #38b2ac, #68d391); }
-        .theme-sunset-btn { background: linear-gradient(135deg, #ff8c42, #ff3c38); }
-        .theme-ocean-btn { background: linear-gradient(135deg, #3182ce, #63b3ed); }
+        .theme-default { background: linear-gradient(135deg, #ff6b6b, #4ecdc4); color: white; }
+        .theme-dark-btn { 
+            background: linear-gradient(135deg, #000000, #2a2a2a); 
+            color: white;
+            border: 2px solid #666;
+        }
+        .theme-nature-btn { background: linear-gradient(135deg, #38b2ac, #68d391); color: white; }
+        .theme-sunset-btn { background: linear-gradient(135deg, #ff8c42, #ff3c38); color: white; }
+        .theme-ocean-btn { background: linear-gradient(135deg, #3182ce, #63b3ed); color: white; }
 
         /* Modo Auto */
         .auto-toggle {
@@ -178,7 +188,7 @@
             transform: translateX(26px);
         }
 
-        /* Menú Responsivo */
+        /* Menú Responsivo - AHORA CON MODO OSCURO */
         .navbar {
             position: fixed;
             top: 0;
@@ -190,6 +200,7 @@
             z-index: 1000;
             padding: 0 20px;
             transition: all 0.3s ease;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .nav-container {
@@ -290,6 +301,7 @@
             animation: modalSlideIn 0.6s ease-out;
             position: relative;
             color: white;
+            border: 1px solid var(--border-color);
         }
 
         /* Contenido Principal */
@@ -307,6 +319,7 @@
             text-align: center;
             animation: fadeIn 1s ease-out;
             margin-bottom: 30px;
+            border: 1px solid var(--border-color);
         }
 
         h1 {
@@ -320,6 +333,12 @@
             color: var(--text-color);
             margin: 30px 0 20px;
             font-size: 2em;
+        }
+
+        h3 {
+            color: var(--text-color);
+            margin: 20px 0 15px;
+            font-size: 1.5em;
         }
 
         p {
@@ -348,10 +367,12 @@
             box-shadow: 0 4px 12px var(--shadow-color);
             text-align: center;
             transition: transform 0.3s ease;
+            border: 1px solid var(--border-color);
         }
 
         .feature-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 25px var(--shadow-color);
         }
 
         .feature-icon {
@@ -360,12 +381,22 @@
             margin-bottom: 20px;
         }
 
+        .info-box {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px var(--shadow-color);
+        }
+
         /* Footer */
         .footer {
             background: var(--card-bg);
             padding: 40px 0;
             text-align: center;
             margin-top: 60px;
+            border-top: 1px solid var(--border-color);
         }
 
         .social-links {
@@ -387,6 +418,7 @@
             text-decoration: none;
             font-size: 1.5em;
             transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
         }
 
         .social-link:hover {
@@ -401,9 +433,10 @@
             height: 60px;
             background: radial-gradient(circle at 20px 20px, var(--primary-color), var(--secondary-color));
             border-radius: 50%;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 20px var(--shadow-color);
             animation: bounce 4s infinite alternate ease-in-out;
             z-index: 1;
+            border: 1px solid var(--border-color);
         }
 
         .ball-shadow {
@@ -491,6 +524,7 @@
                 box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
                 padding: 20px 0;
                 gap: 0;
+                border-top: 1px solid var(--border-color);
             }
 
             .nav-menu.active {
@@ -557,11 +591,13 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 8px var(--shadow-color);
             margin: 5px;
+            border: 1px solid var(--border-color);
         }
 
         .btn:hover {
             background-color: var(--primary-color);
             transform: translateY(-2px);
+            box-shadow: 0 6px 15px var(--shadow-color);
         }
 
         .controls {
@@ -575,6 +611,10 @@
         input[type="range"] {
             width: 200px;
             margin: 0 10px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            height: 6px;
         }
 
         .hidden {
@@ -588,6 +628,33 @@
             color: var(--primary-color);
             font-weight: bold;
         }
+
+        /* Color boxes */
+        .color-box {
+            display: flex;
+            justify-content: space-around;
+            margin: 25px 0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .color {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 8px var(--shadow-color);
+            transition: transform 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .color:hover {
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body class="theme-default">
@@ -596,7 +663,7 @@
         <button class="theme-btn theme-default" onclick="changeTheme('default')" title="Tema Default">
             <i class="fas fa-palette"></i>
         </button>
-        <button class="theme-btn theme-dark-btn" onclick="changeTheme('dark')" title="Tema Oscuro">
+        <button class="theme-btn theme-dark-btn" onclick="changeTheme('dark')" title="Modo Oscuro Real">
             <i class="fas fa-moon"></i>
         </button>
         <button class="theme-btn theme-nature-btn" onclick="changeTheme('nature')" title="Tema Naturaleza">
@@ -613,7 +680,7 @@
         </div>
     </div>
 
-    <!-- Menú Responsivo -->
+    <!-- Menú Responsivo - AHORA CON MODO OSCURO -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="#" class="logo">
@@ -657,9 +724,8 @@
     <!-- Contenido Principal -->
     <div class="main-content">
         <div class="container">
-            <h1>¡Modo Auto Claro/Oscuro! 🌓</h1>
-            <p>Ahora la página detecta automáticamente la preferencia de tu sistema y se adapta.</p>
-            <p>Usa el interruptor "Auto" para activar/desactivar esta función.</p>
+            <h1>¡Modo Oscuro Real! 🌙</h1>
+            <p>Experimenta un verdadero modo oscuro en blanco y negro que reduce la fatiga visual.</p>
             
             <div class="color-box">
                 <div class="color" style="background-color: var(--primary-color);">Primario</div>
@@ -668,8 +734,12 @@
             </div>
 
             <div class="info-box">
-                <h3>¿Cómo funciona?</h3>
-                <p>El modo auto detecta si tu sistema operativo está configurado en modo claro u oscuro y aplica el tema correspondiente automáticamente.</p>
+                <h3>Características del Modo Oscuro Real:</h3>
+                <p>• Esquema de colores en blanco y negro puro</p>
+                <p>• Alto contraste para mejor legibilidad</p>
+                <p>• Reduce la fatiga visual nocturna</p>
+                <p>• Menú y todos los elementos adaptados</p>
+                <p>• Bordes y sombras optimizados</p>
             </div>
 
             <div class="controls">
@@ -686,28 +756,28 @@
         <!-- Sección de Características -->
         <section id="features" class="section">
             <div class="container">
-                <h2>Características del Modo Auto</h2>
+                <h2>Beneficios del Modo Oscuro Real</h2>
                 <div class="features">
                     <div class="feature-card">
                         <div class="feature-icon">
-                            <i class="fas fa-robot"></i>
+                            <i class="fas fa-eye"></i>
                         </div>
-                        <h3>Detección Automática</h3>
-                        <p>Detecta la preferencia de tu sistema operativo sin necesidad de configuración.</p>
+                        <h3>Menos Fatiga Visual</h3>
+                        <p>Reduce la tensión ocular en condiciones de poca luz.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">
-                            <i class="fas fa-sync-alt"></i>
+                            <i class="fas fa-battery-full"></i>
                         </div>
-                        <h3>Cambio en Tiempo Real</h3>
-                        <p>Si cambias el tema de tu sistema, la página se actualiza automáticamente.</p>
+                        <h3>Ahorro de Energía</h3>
+                        <p>En dispositivos OLED, consume menos batería.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">
-                            <i class="fas fa-user-cog"></i>
+                            <i class="fas fa-moon"></i>
                         </div>
-                        <h3>Control Manual</h3>
-                        <p>Puedes desactivar el modo auto y elegir manualmente en cualquier momento.</p>
+                        <h3>Experiencia Nocturna</h3>
+                        <p>Perfecto para usar durante la noche o en ambientes oscuros.</p>
                     </div>
                 </div>
             </div>
@@ -832,11 +902,12 @@
                 display: flex;
                 align-items: center;
                 gap: 10px;
+                border: 1px solid var(--border-color);
             `;
             
             const themeNames = {
                 'default': 'Tema Default',
-                'dark': 'Tema Oscuro',
+                'dark': 'Modo Oscuro Real',
                 'nature': 'Tema Naturaleza',
                 'sunset': 'Tema Atardecer',
                 'ocean': 'Tema Océano',
