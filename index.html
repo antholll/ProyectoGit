@@ -5,844 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Web Mejorada</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary-color: #ff6b6b;
-            --secondary-color: #4ecdc4;
-            --accent-color: #667eea;
-            --background-color: #f8f9fa;
-            --text-color: #333333;
-            --card-bg: #ffffff;
-            --navbar-bg: rgba(255, 255, 255, 0.95);
-            --shadow-color: rgba(0, 0, 0, 0.1);
-            --border-color: #e0e0e0;
-            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --success-color: #28a745;
-            --warning-color: #ffc107;
-            --danger-color: #dc3545;
-        }
-
-        /* MODO OSCURO VERDADERO - BLANCO Y NEGRO */
-        [data-theme="dark"] {
-            --primary-color: #ffffff;
-            --secondary-color: #cccccc;
-            --accent-color: #888888;
-            --background-color: #121212;
-            --text-color: #ffffff;
-            --card-bg: #1e1e1e;
-            --navbar-bg: rgba(30, 30, 30, 0.98);
-            --shadow-color: rgba(0, 0, 0, 0.4);
-            --border-color: #333333;
-            --gradient: linear-gradient(135deg, #000000 0%, #2a2a2a 100%);
-            --success-color: #00c853;
-            --warning-color: #ffab00;
-            --danger-color: #ff1744;
-        }
-
-        .theme-nature {
-            --primary-color: #38b2ac;
-            --secondary-color: #68d391;
-            --accent-color: #f6e05e;
-            --background-color: #f0fff4;
-            --text-color: #2d3748;
-            --card-bg: #ffffff;
-            --gradient: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
-        }
-
-        .theme-sunset {
-            --primary-color: #ff8c42;
-            --secondary-color: #ff3c38;
-            --accent-color: #a23e48;
-            --background-color: #fffaf0;
-            --text-color: #2d3748;
-            --card-bg: #ffffff;
-            --gradient: linear-gradient(135deg, #ff6b6b 0%, #ff8c42 50%, #ff3c38 100%);
-        }
-
-        .theme-ocean {
-            --primary-color: #3182ce;
-            --secondary-color: #63b3ed;
-            --accent-color: #90cdf4;
-            --background-color: #ebf8ff;
-            --text-color: #2d3748;
-            --card-bg: #ffffff;
-            --gradient: linear-gradient(135deg, #3182ce 0%, #63b3ed 50%, #90cdf4 100%);
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background: var(--gradient);
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-            padding-top: 70px;
-            color: var(--text-color);
-            transition: all 0.5s ease;
-        }
-
-        /* Canvas de Partículas */
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        /* Selector de Temas */
-        .theme-selector {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            z-index: 1001;
-            background: var(--card-bg);
-            border-radius: 50px;
-            padding: 10px;
-            box-shadow: 0 4px 20px var(--shadow-color);
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            border: 1px solid var(--border-color);
-        }
-
-        .theme-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2em;
-            border: 2px solid var(--border-color);
-        }
-
-        .theme-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 15px var(--primary-color);
-        }
-
-        .theme-default { background: linear-gradient(135deg, #ff6b6b, #4ecdc4); color: white; }
-        .theme-dark-btn { 
-            background: linear-gradient(135deg, #000000, #2a2a2a); 
-            color: white;
-            border: 2px solid #666;
-        }
-        .theme-nature-btn { background: linear-gradient(135deg, #38b2ac, #68d391); color: white; }
-        .theme-sunset-btn { background: linear-gradient(135deg, #ff8c42, #ff3c38); color: white; }
-        .theme-ocean-btn { background: linear-gradient(135deg, #3182ce, #63b3ed); color: white; }
-
-        /* Modo Auto */
-        .auto-toggle {
-            display: flex;
-            align-items: center;
-            margin-left: 10px;
-            padding-left: 15px;
-            border-left: 2px solid var(--text-color);
-        }
-
-        .auto-label {
-            font-size: 0.9em;
-            margin-right: 8px;
-            color: var(--text-color);
-            font-weight: 500;
-        }
-
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 24px;
-        }
-
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 24px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 18px;
-            width: 18px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-
-        input:checked + .slider {
-            background-color: var(--primary-color);
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(26px);
-        }
-
-        /* Barra de Búsqueda */
-        .search-container {
-            position: relative;
-            margin: 20px auto;
-            max-width: 500px;
-            z-index: 1002;
-        }
-
-        .search-box {
-            width: 100%;
-            padding: 15px 50px 15px 20px;
-            border: 2px solid var(--primary-color);
-            border-radius: 50px;
-            font-size: 1.1em;
-            background: var(--card-bg);
-            color: var(--text-color);
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px var(--shadow-color);
-        }
-
-        .search-box:focus {
-            outline: none;
-            box-shadow: 0 0 20px var(--primary-color);
-            transform: scale(1.02);
-        }
-
-        .search-icon {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--primary-color);
-            font-size: 1.2em;
-        }
-
-        .search-results {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: var(--card-bg);
-            border-radius: 15px;
-            margin-top: 10px;
-            box-shadow: 0 10px 30px var(--shadow-color);
-            max-height: 300px;
-            overflow-y: auto;
-            display: none;
-            z-index: 1003;
-            border: 1px solid var(--border-color);
-        }
-
-        .search-result-item {
-            padding: 15px 20px;
-            border-bottom: 1px solid var(--border-color);
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .search-result-item:hover {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .search-result-item:last-child {
-            border-bottom: none;
-        }
-
-        /* Menú Responsivo */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: var(--navbar-bg);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px var(--shadow-color);
-            z-index: 1000;
-            padding: 0 20px;
-            transition: all 0.3s ease;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 70px;
-        }
-
-        .logo {
-            font-size: 1.8em;
-            font-weight: bold;
-            color: var(--primary-color);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            transition: color 0.3s ease;
-        }
-
-        .logo i {
-            margin-right: 10px;
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
-        .nav-link {
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 5px 0;
-        }
-
-        .nav-link:hover {
-            color: var(--primary-color);
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary-color);
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 5px;
-        }
-
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background: var(--text-color);
-            transition: all 0.3s ease;
-            border-radius: 2px;
-        }
-
-        /* Modal de Bienvenida */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        .modal-content {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            padding: 40px;
-            border-radius: 20px;
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            animation: modalSlideIn 0.6s ease-out;
-            position: relative;
-            color: white;
-            border: 1px solid var(--border-color);
-        }
-
-        /* Contenido Principal */
-        .main-content {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .container {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 8px 16px var(--shadow-color);
-            padding: 30px;
-            text-align: center;
-            animation: fadeIn 1s ease-out;
-            margin-bottom: 30px;
-            border: 1px solid var(--border-color);
-        }
-
-        h1 {
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            font-size: 2.5em;
-            animation: slideIn 0.8s ease-out;
-        }
-
-        h2 {
-            color: var(--text-color);
-            margin: 30px 0 20px;
-            font-size: 2em;
-        }
-
-        h3 {
-            color: var(--text-color);
-            margin: 20px 0 15px;
-            font-size: 1.5em;
-        }
-
-        p {
-            color: var(--text-color);
-            line-height: 1.6;
-            margin-bottom: 20px;
-            animation: fadeIn 1.5s ease-out;
-        }
-
-        /* Estadísticas Animadas */
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 40px 0;
-        }
-
-        .stat-card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 5px 15px var(--shadow-color);
-            border: 1px solid var(--border-color);
-            transition: transform 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .stat-number {
-            font-size: 3em;
-            font-weight: bold;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-
-        .stat-label {
-            font-size: 1.1em;
-            color: var(--text-color);
-        }
-
-        /* Reproductor de Audio */
-        .audio-player {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 15px;
-            margin: 30px 0;
-            box-shadow: 0 5px 15px var(--shadow-color);
-            border: 1px solid var(--border-color);
-        }
-
-        .player-controls {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 15px;
-        }
-
-        .player-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: none;
-            background: var(--primary-color);
-            color: white;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .player-btn:hover {
-            transform: scale(1.1);
-            background: var(--secondary-color);
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: var(--border-color);
-            border-radius: 10px;
-            margin-top: 15px;
-            overflow: hidden;
-        }
-
-        .progress {
-            height: 100%;
-            background: var(--primary-color);
-            border-radius: 10px;
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        /* Secciones */
-        .section {
-            padding: 40px 0;
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin: 40px 0;
-        }
-
-        .feature-card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px var(--shadow-color);
-            text-align: center;
-            transition: transform 0.3s ease;
-            border: 1px solid var(--border-color);
-            cursor: pointer;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px var(--shadow-color);
-        }
-
-        .feature-icon {
-            font-size: 3em;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            transition: transform 0.3s ease;
-        }
-
-        .feature-card:hover .feature-icon {
-            transform: scale(1.2);
-        }
-
-        .info-box {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
-            margin: 20px 0;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 12px var(--shadow-color);
-        }
-
-        /* Footer */
-        .footer {
-            background: var(--card-bg);
-            padding: 40px 0;
-            text-align: center;
-            margin-top: 60px;
-            border-top: 1px solid var(--border-color);
-            position: relative;
-            z-index: 2;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .social-link {
-            width: 50px;
-            height: 50px;
-            background: var(--primary-color);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            font-size: 1.5em;
-            transition: all 0.3s ease;
-            border: 1px solid var(--border-color);
-        }
-
-        .social-link:hover {
-            transform: scale(1.1);
-            background: var(--secondary-color);
-        }
-
-        /* Pelota rebotando */
-        .bouncing-ball {
-            position: fixed;
-            width: 60px;
-            height: 60px;
-            background: radial-gradient(circle at 20px 20px, var(--primary-color), var(--secondary-color));
-            border-radius: 50%;
-            box-shadow: 0 4px 20px var(--shadow-color);
-            animation: bounce 4s infinite alternate ease-in-out;
-            z-index: 1;
-            border: 1px solid var(--border-color);
-        }
-
-        .ball-shadow {
-            position: fixed;
-            width: 40px;
-            height: 10px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 50%;
-            animation: shadow 4s infinite alternate ease-in-out;
-            z-index: 1;
-        }
-
-        /* Animaciones */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideIn {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes modalSlideIn {
-            from { 
-                transform: scale(0.8) translateY(-100px); 
-                opacity: 0; 
-            }
-            to { 
-                transform: scale(1) translateY(0); 
-                opacity: 1; 
-            }
-        }
-
-        @keyframes modalSlideOut {
-            from { 
-                transform: scale(1) translateY(0); 
-                opacity: 1; 
-            }
-            to { 
-                transform: scale(0.8) translateY(-100px); 
-                opacity: 0; 
-            }
-        }
-
-        @keyframes bounce {
-            0% {
-                transform: translate(0, 0) rotate(0deg);
-                animation-timing-function: ease-in;
-            }
-            25% {
-                transform: translate(calc(100vw - 100px), calc(100vh - 100px)) rotate(180deg);
-                animation-timing-function: ease-out;
-            }
-            50% {
-                transform: translate(calc(100vw - 100px), 0) rotate(360deg);
-                animation-timing-function: ease-in;
-            }
-            75% {
-                transform: translate(0, calc(100vh - 100px)) rotate(540deg);
-                animation-timing-function: ease-out;
-            }
-            100% {
-                transform: translate(0, 0) rotate(720deg);
-                animation-timing-function: ease-in;
-            }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
-            }
-
-            .nav-menu {
-                position: fixed;
-                left: -100%;
-                top: 70px;
-                flex-direction: column;
-                background: var(--navbar-bg);
-                backdrop-filter: blur(10px);
-                width: 100%;
-                text-align: center;
-                transition: 0.3s;
-                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
-                padding: 20px 0;
-                gap: 0;
-                border-top: 1px solid var(--border-color);
-            }
-
-            .nav-menu.active {
-                left: 0;
-            }
-
-            .nav-item {
-                margin: 15px 0;
-            }
-
-            .hamburger.active span:nth-child(1) {
-                transform: rotate(45deg) translate(5px, 5px);
-            }
-
-            .hamburger.active span:nth-child(2) {
-                opacity: 0;
-            }
-
-            .hamburger.active span:nth-child(3) {
-                transform: rotate(-45deg) translate(5px, -5px);
-            }
-
-            .features {
-                grid-template-columns: 1fr;
-            }
-
-            .stats-container {
-                grid-template-columns: 1fr;
-            }
-
-            .main-content {
-                padding: 10px;
-            }
-
-            .theme-selector {
-                top: 70px;
-                right: 10px;
-                flex-wrap: wrap;
-                max-width: 120px;
-            }
-
-            .theme-btn {
-                width: 30px;
-                height: 30px;
-            }
-
-            .auto-toggle {
-                flex-direction: column;
-                gap: 5px;
-                border-left: none;
-                border-top: 2px solid var(--text-color);
-                padding-left: 0;
-                padding-top: 10px;
-                margin-left: 0;
-                width: 100%;
-            }
-        }
-
-        /* Botones y Controles */
-        .btn {
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 8px var(--shadow-color);
-            margin: 5px;
-            border: 1px solid var(--border-color);
-        }
-
-        .btn:hover {
-            background-color: var(--primary-color);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px var(--shadow-color);
-        }
-
-        .controls {
-            margin-top: 20px;
-        }
-
-        .speed-control {
-            margin: 10px 0;
-        }
-
-        input[type="range"] {
-            width: 200px;
-            margin: 0 10px;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            height: 6px;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        /* Indicador de modo auto */
-        .auto-indicator {
-            font-size: 0.8em;
-            margin-top: 5px;
-            color: var(--primary-color);
-            font-weight: bold;
-        }
-
-        /* Color boxes */
-        .color-box {
-            display: flex;
-            justify-content: space-around;
-            margin: 25px 0;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .color {
-            width: 80px;
-            height: 80px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            box-shadow: 0 4px 8px var(--shadow-color);
-            transition: transform 0.3s ease;
-            border: 1px solid var(--border-color);
-        }
-
-        .color:hover {
-            transform: scale(1.1);
-        }
-    </style>
+    <link rel="stylesheet" href="estilos.css"> <!-- Enlace al archivo CSS externo -->
 </head>
 <body class="theme-default">
     <!-- Canvas para Partículas -->
@@ -858,6 +21,12 @@
         </button>
         <button class="theme-btn theme-nature-btn" onclick="changeTheme('nature')" title="Tema Naturaleza">
             <i class="fas fa-leaf"></i>
+        </button>
+        <button class="theme-btn theme-sunset-btn" onclick="changeTheme('sunset')" title="Tema Atardecer">
+            <i class="fas fa-sun"></i>
+        </button>
+        <button class="theme-btn theme-ocean-btn" onclick="changeTheme('ocean')" title="Tema Océano">
+            <i class="fas fa-water"></i>
         </button>
         
         <div class="auto-toggle">
@@ -951,19 +120,19 @@
                 <h2>📊 Estadísticas en Tiempo Real</h2>
                 <div class="stats-container">
                     <div class="stat-card">
-                        <div class="stat-number" id="stat1">0</div>
+                        <div class="stat-number" id="stat1" data-target="1542">0</div>
                         <div class="stat-label">Usuarios Online</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number" id="stat2">0</div>
+                        <div class="stat-number" id="stat2" data-target="8923">0</div>
                         <div class="stat-label">Páginas Visitadas</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number" id="stat3">0</div>
+                        <div class="stat-number" id="stat3" data-target="47">0</div>
                         <div class="stat-label">Tiempo Promedio</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number" id="stat4">0</div>
+                        <div class="stat-number" id="stat4" data-target="98">0</div>
                         <div class="stat-label">Satisfacción</div>
                     </div>
                 </div>
@@ -1071,7 +240,7 @@
     <div class="bouncing-ball" id="ball"></div>
     <div class="ball-shadow" id="shadow"></div>
 
-    <!-- Script de Partículas -->
+    <!-- Script de la página -->
     <script>
         // Configuración de partículas
         function initParticles() {
@@ -1205,10 +374,15 @@
                     
                     item.addEventListener('click', () => {
                         result.element.scrollIntoView({ behavior: 'smooth' });
-                        result.element.style.animation = 'pulse 0.5s ease';
-                        setTimeout(() => {
-                            result.element.style.animation = '';
-                        }, 500);
+                        // Añadir una animación de "pulse" para resaltar el elemento
+                        result.element.animate([
+                            { transform: 'scale(1)' },
+                            { transform: 'scale(1.03)' },
+                            { transform: 'scale(1)' }
+                        ], {
+                            duration: 500,
+                            iterations: 1
+                        });
                         searchResults.style.display = 'none';
                         searchInput.value = '';
                     });
@@ -1230,7 +404,20 @@
         // Contador de Estadísticas
         function initStatsCounter() {
             const counters = document.querySelectorAll('.stat-number');
-            const speed = 200;
+            const speed = 2000; // Duración de la animación en ms
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        if (!counter.classList.contains('animated')) {
+                            counter.classList.add('animated');
+                            const target = parseInt(counter.getAttribute('data-target'));
+                            animateValue(counter, 0, target, speed);
+                        }
+                    }
+                });
+            }, { threshold: 0.5 }); // Activar cuando el 50% del elemento sea visible
 
             function animateValue(element, start, end, duration) {
                 let startTimestamp = null;
@@ -1245,27 +432,9 @@
                 window.requestAnimationFrame(step);
             }
 
-            function checkScroll() {
-                counters.forEach(counter => {
-                    const rect = counter.getBoundingClientRect();
-                    if (rect.top < window.innerHeight && rect.bottom >= 0) {
-                        if (!counter.classList.contains('animated')) {
-                            counter.classList.add('animated');
-                            const target = parseInt(counter.getAttribute('data-target'));
-                            animateValue(counter, 0, target, speed);
-                        }
-                    }
-                });
-            }
-
-            // Establecer valores objetivo
-            document.getElementById('stat1').setAttribute('data-target', '1542');
-            document.getElementById('stat2').setAttribute('data-target', '8923');
-            document.getElementById('stat3').setAttribute('data-target', '47');
-            document.getElementById('stat4').setAttribute('data-target', '98');
-
-            window.addEventListener('scroll', checkScroll);
-            checkScroll(); // Verificar al cargar
+            counters.forEach(counter => {
+                observer.observe(counter);
+            });
         }
 
         // Reproductor de Audio
@@ -1281,7 +450,8 @@
                     playIcon.className = 'fas fa-play';
                 } else {
                     audio.play().catch(e => {
-                        console.log('Reproducción automática bloqueada:', e);
+                        console.error('Error al intentar reproducir audio:', e);
+                        alert('La reproducción automática de audio puede estar bloqueada por el navegador. Por favor, interactúa con la página para habilitarla.');
                     });
                     playIcon.className = 'fas fa-pause';
                 }
@@ -1296,24 +466,30 @@
                 progressBar.style.width = '0%';
             };
 
+            // Mejorar el control de volumen con un slider si se desea, o mantener el botón para un volumen fijo
             window.changeVolume = function(volume) {
-                audio.volume = volume;
+                audio.volume = volume; // Establece un volumen fijo, por ejemplo 0.1
+                // Para un control de volumen más dinámico, se necesitaría un input type="range" en el HTML
             };
 
             audio.addEventListener('timeupdate', () => {
-                const progress = (audio.currentTime / audio.duration) * 100;
-                progressBar.style.width = progress + '%';
+                if (audio.duration) { // Asegurarse de que la duración esté disponible
+                    const progress = (audio.currentTime / audio.duration) * 100;
+                    progressBar.style.width = progress + '%';
+                }
             });
 
             progressBar.parentElement.addEventListener('click', (e) => {
                 const rect = progressBar.parentElement.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const clickedValue = x / rect.width;
-                audio.currentTime = clickedValue * audio.duration;
+                if (audio.duration) {
+                    audio.currentTime = clickedValue * audio.duration;
+                }
             });
         }
 
-        // Variables globales
+        // Variables globales para el manejo de temas
         let autoThemeEnabled = false;
         let systemPreference = null;
 
@@ -1349,6 +525,9 @@
                     applySystemTheme();
                 } else {
                     showThemeNotification('Modo manual activado');
+                    // Si se desactiva el modo auto, se mantiene el tema actual o se vuelve al default
+                    const currentTheme = localStorage.getItem('selectedTheme') || 'default';
+                    document.body.className = 'theme-' + currentTheme;
                 }
             });
 
@@ -1368,13 +547,15 @@
             if (!autoThemeEnabled) return;
             
             systemPreference = detectSystemPreference();
-            changeTheme(systemPreference);
+            changeTheme(systemPreference, true); // El segundo parámetro indica que es un cambio automático
             showThemeNotification(`Modo auto: ${systemPreference === 'dark' ? 'Oscuro' : 'Claro'}`);
         }
 
         // Función para cambiar el tema
-        function changeTheme(themeName) {
-            if (autoThemeEnabled && themeName !== systemPreference) {
+        function changeTheme(themeName, isAuto = false) {
+            if (!isAuto && autoThemeEnabled) {
+                // Si el usuario cambia el tema manualmente mientras el modo auto está activado,
+                // se desactiva el modo auto.
                 document.getElementById('auto-theme-toggle').checked = false;
                 autoThemeEnabled = false;
                 document.getElementById('auto-indicator').textContent = 'OFF';
@@ -1385,13 +566,13 @@
             document.body.className = 'theme-' + themeName;
             localStorage.setItem('selectedTheme', themeName);
             
-            if (!autoThemeEnabled) {
+            if (!isAuto) { // Solo mostrar notificación si el cambio es manual
                 showThemeNotification(themeName);
             }
         }
 
         // Mostrar notificación del tema
-        function showThemeNotification(themeName) {
+        function showThemeNotification(message) {
             const notification = document.createElement('div');
             notification.style.cssText = `
                 position: fixed;
@@ -1409,9 +590,11 @@
                 align-items: center;
                 gap: 10px;
                 border: 1px solid var(--border-color);
+                opacity: 0;
+                transition: opacity 0.3s ease-in-out;
             `;
             
-            const themeNames = {
+            const themeMessages = {
                 'default': 'Tema Default',
                 'dark': 'Modo Oscuro Real',
                 'nature': 'Tema Naturaleza',
@@ -1423,13 +606,19 @@
             
             notification.innerHTML = `
                 <i class="fas fa-check-circle" style="color: var(--primary-color);"></i>
-                ${themeNames[themeName] || themeName}
+                ${themeMessages[message] || message}
             `;
             
             document.body.appendChild(notification);
             
+            // Animar la aparición y desaparición
             setTimeout(() => {
-                notification.remove();
+                notification.style.opacity = 1;
+            }, 10); // Pequeño retraso para que la transición funcione
+
+            setTimeout(() => {
+                notification.style.opacity = 0;
+                notification.addEventListener('transitionend', () => notification.remove(), { once: true });
             }, 2000);
         }
 
@@ -1437,7 +626,7 @@
         function loadSavedTheme() {
             const savedTheme = localStorage.getItem('selectedTheme');
             if (savedTheme) {
-                changeTheme(savedTheme);
+                document.body.className = 'theme-' + savedTheme;
             }
         }
 
@@ -1458,78 +647,92 @@
             });
         });
 
-        // Modal y otras funciones existentes
+        // Modal de Bienvenida
         const welcomeModal = document.getElementById('welcomeModal');
         const countdownElement = document.getElementById('countdown');
         const countdownAnimation = document.getElementById('countdown-animation');
-        const ball = document.getElementById('ball');
-        const shadow = document.getElementById('shadow');
-        const speedControl = document.getElementById('speed-control');
-        const speedValue = document.getElementById('speed-value');
-        const toggleBtn = document.getElementById('toggle-btn');
-
-        let isPaused = false;
-        let currentSpeed = 4;
-        let countdown = 5;
-        let countdownInterval;
+        
+        let countdownTimer; // Renombrado para evitar conflicto con la variable global 'countdown'
 
         function startCountdown() {
-            countdown = 5;
-            countdownElement.textContent = countdown;
+            let currentCountdown = 5; // Variable local para el contador del modal
+            countdownElement.textContent = currentCountdown;
             
-            countdownInterval = setInterval(() => {
-                countdown--;
-                countdownElement.textContent = countdown;
+            countdownTimer = setInterval(() => {
+                currentCountdown--;
+                countdownElement.textContent = currentCountdown;
                 
-                countdownAnimation.style.transform = `scale(${1 + (5 - countdown) * 0.1})`;
+                countdownAnimation.style.transform = `scale(${1 + (5 - currentCountdown) * 0.1})`;
                 
-                if (countdown <= 0) {
-                    clearInterval(countdownInterval);
+                if (currentCountdown <= 0) {
+                    clearInterval(countdownTimer);
                     closeModal();
                 }
             }, 1000);
         }
 
         function closeModal() {
-            clearInterval(countdownInterval);
-            welcomeModal.style.animation = 'modalSlideOut 0.5s ease-out';
+            clearInterval(countdownTimer);
+            welcomeModal.style.animation = 'modalSlideOut 0.5s ease-out forwards'; // 'forwards' mantiene el estado final
             setTimeout(() => {
                 welcomeModal.classList.add('hidden');
             }, 500);
         }
 
-        function showModalAgain() {
+        // No se usa showModalAgain en el código original, pero se mantiene por si acaso.
+        // Si se quiere mostrar el modal de nuevo, se puede llamar a esta función.
+        window.showModalAgain = function() {
             welcomeModal.classList.remove('hidden');
-            welcomeModal.style.animation = 'modalSlideIn 0.6s ease-out';
+            welcomeModal.style.animation = 'modalSlideIn 0.6s ease-out forwards';
             startCountdown();
+        };
+
+        // Pelota rebotando (se movió la lógica de velocidad y pausa aquí)
+        const ball = document.getElementById('ball');
+        const shadow = document.getElementById('shadow');
+        // No hay speed-control ni toggle-btn en el HTML actual, se asume que se eliminaron o se usarán en otro lugar.
+        // Si se necesitan, se deben añadir al HTML.
+        // const speedControl = document.getElementById('speed-control');
+        // const speedValue = document.getElementById('speed-value');
+        // const toggleBtn = document.getElementById('toggle-btn');
+
+        let isBallPaused = false; // Renombrado para evitar conflicto
+        let currentBallSpeed = 4; // Velocidad inicial de la animación de la pelota
+
+        // Si se reintroducen los controles de velocidad y pausa, se usarían así:
+        /*
+        if (speedControl) {
+            speedControl.addEventListener('input', function() {
+                currentBallSpeed = 9 - this.value;
+                if (speedValue) speedValue.textContent = currentBallSpeed.toFixed(1);
+                
+                if (!isBallPaused) {
+                    ball.style.animationDuration = currentBallSpeed + 's';
+                    shadow.style.animationDuration = currentBallSpeed + 's';
+                }
+            });
         }
 
-        speedControl.addEventListener('input', function() {
-            currentSpeed = 9 - this.value;
-            speedValue.textContent = currentSpeed.toFixed(1);
-            
-            if (!isPaused) {
-                ball.style.animationDuration = currentSpeed + 's';
-                shadow.style.animationDuration = currentSpeed + 's';
-            }
-        });
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', function() {
+                isBallPaused = !isBallPaused;
+                
+                if (isBallPaused) {
+                    ball.style.animationPlayState = 'paused';
+                    shadow.style.animationPlayState = 'paused';
+                    this.textContent = 'Reanudar';
+                } else {
+                    ball.style.animationPlayState = 'running';
+                    shadow.style.animationPlayState = 'running';
+                    this.textContent = 'Pausar';
+                }
+            });
+        }
+        */
 
-        toggleBtn.addEventListener('click', function() {
-            isPaused = !isPaused;
-            
-            if (isPaused) {
-                ball.style.animationPlayState = 'paused';
-                shadow.style.animationPlayState = 'paused';
-                this.textContent = 'Reanudar';
-            } else {
-                ball.style.animationPlayState = 'running';
-                shadow.style.animationPlayState = 'running';
-                this.textContent = 'Pausar';
-            }
-        });
-
+        // Cambio de color de la pelota rebotando
         setInterval(() => {
-            if (!isPaused) {
+            if (!isBallPaused) {
                 const colors = ['var(--primary-color)', 'var(--secondary-color)', 'var(--accent-color)'];
                 const randomColor = colors[Math.floor(Math.random() * colors.length)];
                 ball.style.background = `radial-gradient(circle at 20px 20px, ${randomColor}, ${randomColor}44)`;
@@ -1538,29 +741,41 @@
 
         // Inicializar todo cuando cargue la página
         window.addEventListener('load', function() {
+            // Iniciar el modal después de un breve retraso
             setTimeout(() => {
                 startCountdown();
             }, 1000);
+
+            // Cargar tema guardado y configurar modo auto
             loadSavedTheme();
             setupAutoTheme();
-            systemPreference = detectSystemPreference();
-            
+            systemPreference = detectSystemPreference(); // Asegurarse de que systemPreference esté inicializado
+
             // Inicializar nuevas características
             initParticles();
             initSearch();
             initStatsCounter();
             initAudioPlayer();
+
+            // Iniciar el efecto de escritura para el título
+            typeWriterEffect();
         });
 
         // Smooth scroll para los links del menú
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Calcular el desplazamiento para tener en cuenta la barra de navegación fija
+                    const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                    const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                    const offsetPosition = elementPosition - navbarHeight;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
                     });
                 }
             });
@@ -1569,6 +784,7 @@
         // Efecto de escritura para el título
         function typeWriterEffect() {
             const title = document.querySelector('h1');
+            if (!title) return; // Asegurarse de que el título exista
             const originalText = title.textContent;
             title.textContent = '';
             let i = 0;
@@ -1582,9 +798,6 @@
             }
             type();
         }
-
-        // Iniciar efecto de escritura después de cargar
-        setTimeout(typeWriterEffect, 1500);
     </script>
 </body>
 </html>
