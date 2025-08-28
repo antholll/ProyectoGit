@@ -46,12 +46,11 @@ function initParticles() {
 
     function animateParticles() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
+
         for (let i = 0; i < particles.length; i++) {
             particles[i].update();
             particles[i].draw();
 
-            // Conectar partículas cercanas
             for (let j = i; j < particles.length; j++) {
                 const dx = particles[i].x - particles[j].x;
                 const dy = particles[i].y - particles[j].y;
@@ -59,7 +58,7 @@ function initParticles() {
 
                 if (distance < 100) {
                     ctx.beginPath();
-                    ctx.strokeStyle = `rgba(255, 255, 255, ${0.1})`;
+                    ctx.strokeStyle = `rgba(255, 255, 255, 0.1)`;
                     ctx.lineWidth = 0.5;
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
@@ -86,9 +85,9 @@ function initSearch() {
     const searchResults = document.getElementById('searchResults');
     const features = document.querySelectorAll('.feature-card');
 
-    searchInput.addEventListener('input', function() {
+    searchInput.addEventListener('input', function () {
         const searchTerm = this.value.toLowerCase().trim();
-        
+
         if (searchTerm.length < 2) {
             searchResults.style.display = 'none';
             return;
@@ -98,7 +97,7 @@ function initSearch() {
         features.forEach(card => {
             const text = card.textContent.toLowerCase();
             const searchData = card.getAttribute('data-search').toLowerCase();
-            
+
             if (text.includes(searchTerm) || searchData.includes(searchTerm)) {
                 results.push({
                     title: card.querySelector('h3').textContent,
@@ -113,7 +112,7 @@ function initSearch() {
 
     function displayResults(results) {
         searchResults.innerHTML = '';
-        
+
         if (results.length === 0) {
             searchResults.innerHTML = '<div class="search-result-item">No se encontraron resultados</div>';
             searchResults.style.display = 'block';
@@ -127,10 +126,9 @@ function initSearch() {
                 <strong>${result.title}</strong><br>
                 <small>${result.content}</small>
             `;
-            
+
             item.addEventListener('click', () => {
                 result.element.scrollIntoView({ behavior: 'smooth' });
-                // Añadir una animación de "pulse" para resaltar el elemento
                 result.element.animate([
                     { transform: 'scale(1)' },
                     { transform: 'scale(1.03)' },
@@ -149,7 +147,6 @@ function initSearch() {
         searchResults.style.display = 'block';
     }
 
-    // Cerrar resultados al hacer clic fuera
     document.addEventListener('click', (e) => {
         if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
             searchResults.style.display = 'none';
@@ -160,9 +157,9 @@ function initSearch() {
 // Contador de Estadísticas
 function initStatsCounter() {
     const counters = document.querySelectorAll('.stat-number');
-    const speed = 2000; // Duración de la animación en ms
+    const speed = 2000;
 
-    const observer = new IntersectionObserver((entries, observer) => {
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const counter = entry.target;
@@ -173,7 +170,7 @@ function initStatsCounter() {
                 }
             }
         });
-    }, { threshold: 0.5 }); // Activar cuando el 50% del elemento sea visible
+    }, { threshold: 0.5 });
 
     function animateValue(element, start, end, duration) {
         let startTimestamp = null;
@@ -193,14 +190,25 @@ function initStatsCounter() {
     });
 }
 
-// Reproductor de Audio
+// Reproductor de Audio con spinner
 function initAudioPlayer() {
     const audio = document.getElementById('backgroundAudio');
     const playIcon = document.getElementById('playIcon');
     const progressBar = document.getElementById('audioProgress');
     let isPlaying = false;
 
-    window.playPause = function() {
+    const audioPlayer = audio.closest('.audio-player');
+    const spinner = audioPlayer.querySelector('.audio-spinner');
+
+    audio.addEventListener('loadstart', () => {
+        spinner.style.display = 'block';
+    });
+
+    audio.addEventListener('canplay', () => {
+        spinner.style.display = 'none';
+    });
+
+    window.playPause = function () {
         if (isPlaying) {
             audio.pause();
             playIcon.className = 'fas fa-play';
@@ -214,7 +222,7 @@ function initAudioPlayer() {
         isPlaying = !isPlaying;
     };
 
-    window.stopAudio = function() {
+    window.stopAudio = function () {
         audio.pause();
         audio.currentTime = 0;
         playIcon.className = 'fas fa-play';
@@ -222,14 +230,12 @@ function initAudioPlayer() {
         progressBar.style.width = '0%';
     };
 
-    // Mejorar el control de volumen con un slider si se desea, o mantener el botón para un volumen fijo
-    window.changeVolume = function(volume) {
-        audio.volume = volume; // Establece un volumen fijo, por ejemplo 0.1
-        // Para un control de volumen más dinámico, se necesitaría un input type="range" en el HTML
+    window.changeVolume = function (volume) {
+        audio.volume = volume;
     };
 
     audio.addEventListener('timeupdate', () => {
-        if (audio.duration) { // Asegurarse de que la duración esté disponible
+        if (audio.duration) {
             const progress = (audio.currentTime / audio.duration) * 100;
             progressBar.style.width = progress + '%';
         }
@@ -261,7 +267,7 @@ function detectSystemPreference() {
 function setupAutoTheme() {
     const autoToggle = document.getElementById('auto-theme-toggle');
     const autoIndicator = document.getElementById('auto-indicator');
-    
+
     // Cargar preferencia guardada
     const savedAutoMode = localStorage.getItem('autoThemeEnabled');
     if (savedAutoMode === 'true') {
@@ -272,16 +278,15 @@ function setupAutoTheme() {
     }
 
     // Escuchar cambios en el toggle
-    autoToggle.addEventListener('change', function() {
+    autoToggle.addEventListener('change', function () {
         autoThemeEnabled = this.checked;
         autoIndicator.textContent = this.checked ? 'ON' : 'OFF';
         localStorage.setItem('autoThemeEnabled', this.checked);
-        
+
         if (this.checked) {
             applySystemTheme();
         } else {
             showThemeNotification('Modo manual activado');
-            // Si se desactiva el modo auto, se mantiene el tema actual o se vuelve al default
             const currentTheme = localStorage.getItem('selectedTheme') || 'default';
             document.body.className = 'theme-' + currentTheme;
         }
@@ -301,28 +306,26 @@ function setupAutoTheme() {
 // Aplicar tema del sistema
 function applySystemTheme() {
     if (!autoThemeEnabled) return;
-    
+
     systemPreference = detectSystemPreference();
-    changeTheme(systemPreference, true); // El segundo parámetro indica que es un cambio automático
+    changeTheme(systemPreference, true);
     showThemeNotification(`Modo auto: ${systemPreference === 'dark' ? 'Oscuro' : 'Claro'}`);
 }
 
 // Función para cambiar el tema
 function changeTheme(themeName, isAuto = false) {
     if (!isAuto && autoThemeEnabled) {
-        // Si el usuario cambia el tema manualmente mientras el modo auto está activado,
-        // se desactiva el modo auto.
         document.getElementById('auto-theme-toggle').checked = false;
         autoThemeEnabled = false;
         document.getElementById('auto-indicator').textContent = 'OFF';
         localStorage.setItem('autoThemeEnabled', 'false');
         showThemeNotification('Modo auto desactivado');
     }
-    
+
     document.body.className = 'theme-' + themeName;
     localStorage.setItem('selectedTheme', themeName);
-    
-    if (!isAuto) { // Solo mostrar notificación si el cambio es manual
+
+    if (!isAuto) {
         showThemeNotification(themeName);
     }
 }
@@ -349,7 +352,7 @@ function showThemeNotification(message) {
         opacity: 0;
         transition: opacity 0.3s ease-in-out;
     `;
-    
+
     const themeMessages = {
         'default': 'Tema Default',
         'dark': 'Modo Oscuro Real',
@@ -359,18 +362,17 @@ function showThemeNotification(message) {
         'Modo auto activado': 'Modo Auto Activado',
         'Modo manual activado': 'Modo Manual Activado'
     };
-    
+
     notification.innerHTML = `
         <i class="fas fa-check-circle" style="color: var(--primary-color);"></i>
         ${themeMessages[message] || message}
     `;
-    
+
     document.body.appendChild(notification);
-    
-    // Animar la aparición y desaparición
+
     setTimeout(() => {
         notification.style.opacity = 1;
-    }, 10); // Pequeño retraso para que la transición funcione
+    }, 10);
 
     setTimeout(() => {
         notification.style.opacity = 0;
@@ -395,7 +397,6 @@ hamburger.addEventListener('click', () => {
     navMenu.classList.toggle('active');
 });
 
-// Cerrar menú al hacer clic en un link
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', () => {
         hamburger.classList.remove('active');
@@ -408,18 +409,18 @@ const welcomeModal = document.getElementById('welcomeModal');
 const countdownElement = document.getElementById('countdown');
 const countdownAnimation = document.getElementById('countdown-animation');
 
-let countdownTimer; // Renombrado para evitar conflicto con la variable global 'countdown'
+let countdownTimer;
 
 function startCountdown() {
-    let currentCountdown = 5; // Variable local para el contador del modal
+    let currentCountdown = 5;
     countdownElement.textContent = currentCountdown;
-    
+
     countdownTimer = setInterval(() => {
         currentCountdown--;
         countdownElement.textContent = currentCountdown;
-        
+
         countdownAnimation.style.transform = `scale(${1 + (5 - currentCountdown) * 0.1})`;
-        
+
         if (currentCountdown <= 0) {
             clearInterval(countdownTimer);
             closeModal();
@@ -429,19 +430,18 @@ function startCountdown() {
 
 function closeModal() {
     clearInterval(countdownTimer);
-    welcomeModal.style.animation = 'modalSlideOut 0.5s ease-out forwards'; // 'forwards' mantiene el estado final
+    welcomeModal.style.animation = 'modalSlideOut 0.5s ease-out forwards';
     setTimeout(() => {
         welcomeModal.classList.add('hidden');
     }, 500);
 }
 
-// Pelota rebotando (se movió la lógica de velocidad y pausa aquí)
+// Pelota rebotando
 const ball = document.getElementById('ball');
 const shadow = document.getElementById('shadow');
-let isBallPaused = false; // Renombrado para evitar conflicto
-let currentBallSpeed = 4; // Velocidad inicial de la animación de la pelota
+let isBallPaused = false;
+let currentBallSpeed = 4;
 
-// Cambio de color de la pelota rebotando
 setInterval(() => {
     if (!isBallPaused) {
         const colors = ['var(--primary-color)', 'var(--secondary-color)', 'var(--accent-color)'];
@@ -450,26 +450,51 @@ setInterval(() => {
     }
 }, 2000);
 
+// Modo Alto Contraste
+function toggleHighContrast() {
+    const isActive = document.body.getAttribute('data-theme') === 'high-contrast';
+    if (isActive) {
+        document.body.removeAttribute('data-theme');
+        localStorage.removeItem('highContrastEnabled');
+    } else {
+        document.body.setAttribute('data-theme', 'high-contrast');
+        localStorage.setItem('highContrastEnabled', 'true');
+    }
+}
+
+function loadHighContrast() {
+    if (localStorage.getItem('highContrastEnabled') === 'true') {
+        document.body.setAttribute('data-theme', 'high-contrast');
+    }
+}
+
+// Animaciones optimizadas para elementos clave
+function applyFadeInAnimations() {
+    const fadeElements = document.querySelectorAll('h1, p, .container, .feature-card, .stat-card, .audio-player, .footer');
+    fadeElements.forEach(el => {
+        el.classList.add('fade-in');
+    });
+}
+
 // Inicializar todo cuando cargue la página
-window.addEventListener('load', function() {
-    // Iniciar el modal después de un breve retraso
+window.addEventListener('load', function () {
     setTimeout(() => {
         startCountdown();
     }, 1000);
 
-    // Cargar tema guardado y configurar modo auto
     loadSavedTheme();
     setupAutoTheme();
-    systemPreference = detectSystemPreference(); // Asegurarse de que systemPreference esté inicializado
+    loadHighContrast();
+    systemPreference = detectSystemPreference();
 
-    // Inicializar nuevas características
     initParticles();
     initSearch();
     initStatsCounter();
     initAudioPlayer();
 
-    // Iniciar el efecto de escritura para el título
     typeWriterEffect();
+
+    applyFadeInAnimations();
 });
 
 // Smooth scroll para los links del menú
@@ -479,7 +504,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         const targetId = this.getAttribute('href');
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
-            // Calcular el desplazamiento para tener en cuenta la barra de navegación fija
             const navbarHeight = document.querySelector('.navbar').offsetHeight;
             const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
             const offsetPosition = elementPosition - navbarHeight;
@@ -495,11 +519,11 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Efecto de escritura para el título
 function typeWriterEffect() {
     const title = document.querySelector('h1');
-    if (!title) return; // Asegurarse de que el título exista
+    if (!title) return;
     const originalText = title.textContent;
     title.textContent = '';
     let i = 0;
-    
+
     function type() {
         if (i < originalText.length) {
             title.textContent += originalText.charAt(i);

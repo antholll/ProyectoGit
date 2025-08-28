@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Página Web Mejorada</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="estilos.css"> <!-- Enlace al archivo CSS externo -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="estilos.css" />
 </head>
 <body class="theme-default">
-    <!-- Canvas para Partículas -->
     <canvas id="particles-js"></canvas>
 
-    <!-- Selector de Temas con Modo Auto -->
     <div class="theme-selector">
         <button class="theme-btn theme-default" onclick="changeTheme('default')" title="Tema Default">
             <i class="fas fa-palette"></i>
@@ -28,40 +26,32 @@
         <button class="theme-btn theme-ocean-btn" onclick="changeTheme('ocean')" title="Tema Océano">
             <i class="fas fa-water"></i>
         </button>
-        
+        <button class="theme-btn theme-high-contrast-btn" onclick="toggleHighContrast()" title="Modo Alto Contraste">
+            <i class="fas fa-adjust"></i>
+        </button>
+
         <div class="auto-toggle">
             <span class="auto-label">Auto</span>
             <label class="switch">
-                <input type="checkbox" id="auto-theme-toggle">
+                <input type="checkbox" id="auto-theme-toggle" />
                 <span class="slider"></span>
             </label>
             <div class="auto-indicator" id="auto-indicator">OFF</div>
         </div>
     </div>
 
-    <!-- Menú Responsivo -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="#" class="logo">
                 <i class="fas fa-rocket"></i>MiSitio Pro
             </a>
-            
+
             <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#features" class="nav-link">Características</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#stats" class="nav-link">Estadísticas</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#music" class="nav-link">Música</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contact" class="nav-link">Contacto</a>
-                </li>
+                <li class="nav-item"><a href="#" class="nav-link">Inicio</a></li>
+                <li class="nav-item"><a href="#features" class="nav-link">Características</a></li>
+                <li class="nav-item"><a href="#stats" class="nav-link">Estadísticas</a></li>
+                <li class="nav-item"><a href="#music" class="nav-link">Música</a></li>
+                <li class="nav-item"><a href="#contact" class="nav-link">Contacto</a></li>
             </ul>
 
             <div class="hamburger" id="hamburger">
@@ -72,7 +62,6 @@
         </div>
     </nav>
 
-    <!-- Modal de Bienvenida -->
     <div class="modal-overlay" id="welcomeModal">
         <div class="modal-content">
             <h2>¡Bienvenido! 🎉</h2>
@@ -83,25 +72,21 @@
         </div>
     </div>
 
-    <!-- Contenido Principal -->
     <div class="main-content">
-        <!-- Barra de Búsqueda -->
         <div class="search-container">
-            <input type="text" class="search-box" id="searchInput" placeholder="🔍 Buscar características...">
-            <div class="search-icon">
-                <i class="fas fa-search"></i>
-            </div>
+            <input type="text" class="search-box" id="searchInput" placeholder="🔍 Buscar características..." />
+            <div class="search-icon"><i class="fas fa-search"></i></div>
             <div class="search-results" id="searchResults"></div>
         </div>
 
         <div class="container">
             <h1>¡Página Web Mejorada! 🚀</h1>
             <p>Ahora con búsqueda en tiempo real, efectos de partículas y más características interactivas.</p>
-            
+
             <div class="color-box">
-                <div class="color" style="background-color: var(--primary-color);">Primario</div>
-                <div class="color" style="background-color: var(--secondary-color);">Secundario</div>
-                <div class="color" style="background-color: var(--accent-color);">Acento</div>
+                <div class="color" style="background-color: var(--primary-color)">Primario</div>
+                <div class="color" style="background-color: var(--secondary-color)">Secundario</div>
+                <div class="color" style="background-color: var(--accent-color)">Acento</div>
             </div>
 
             <div class="info-box">
@@ -114,7 +99,6 @@
             </div>
         </div>
 
-        <!-- Estadísticas Animadas -->
         <section id="stats" class="section">
             <div class="container">
                 <h2>📊 Estadísticas en Tiempo Real</h2>
@@ -139,12 +123,12 @@
             </div>
         </section>
 
-        <!-- Reproductor de Audio -->
         <section id="music" class="section">
             <div class="container">
                 <h2>🎵 Reproductor de Audio</h2>
                 <div class="audio-player">
                     <h3>Música Relajante</h3>
+                    <div class="audio-spinner"></div>
                     <div class="player-controls">
                         <button class="player-btn" onclick="playPause()">
                             <i class="fas fa-play" id="playIcon"></i>
@@ -160,56 +144,43 @@
                         <div class="progress" id="audioProgress"></div>
                     </div>
                     <audio id="backgroundAudio" loop>
-                        <source src="https://assets.mixkit.co/music/preview/mixkit-tech-house-vibes-130.mp3" type="audio/mpeg">
+                        <source src="https://assets.mixkit.co/music/preview/mixkit-tech-house-vibes-130.mp3" type="audio/mpeg" />
                     </audio>
                 </div>
             </div>
         </section>
 
-        <!-- Sección de Características -->
         <section id="features" class="section">
             <div class="container">
                 <h2>⭐ Características Principales</h2>
                 <div class="features">
                     <div class="feature-card" data-search="busqueda inteligente filtro">
-                        <div class="feature-icon">
-                            <i class="fas fa-search"></i>
-                        </div>
+                        <div class="feature-icon"><i class="fas fa-search"></i></div>
                         <h3>Búsqueda Inteligente</h3>
                         <p>Busca contenido en tiempo real con resultados instantáneos.</p>
                     </div>
                     <div class="feature-card" data-search="particulas efectos visuales">
-                        <div class="feature-icon">
-                            <i class="fas fa-star"></i>
-                        </div>
+                        <div class="feature-icon"><i class="fas fa-star"></i></div>
                         <h3>Efectos de Partículas</h3>
                         <p>Fondo interactivo con partículas que responden al movimiento.</p>
                     </div>
                     <div class="feature-card" data-search="estadisticas contador animacion">
-                        <div class="feature-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
+                        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
                         <h3>Estadísticas Animadas</h3>
                         <p>Contadores que se animan al hacer scroll hacia ellos.</p>
                     </div>
                     <div class="feature-card" data-search="musica reproductor audio">
-                        <div class="feature-icon">
-                            <i class="fas fa-music"></i>
-                        </div>
+                        <div class="feature-icon"><i class="fas fa-music"></i></div>
                         <h3>Reproductor de Audio</h3>
                         <p>Controla la música de fondo directamente desde la página.</p>
                     </div>
                     <div class="feature-card" data-search="modo oscuro nocturno">
-                        <div class="feature-icon">
-                            <i class="fas fa-moon"></i>
-                        </div>
+                        <div class="feature-icon"><i class="fas fa-moon"></i></div>
                         <h3>Modo Oscuro Real</h3>
                         <p>Experiencia nocturna con colores optimizados para la vista.</p>
                     </div>
                     <div class="feature-card" data-search="responsive adaptable movil">
-                        <div class="feature-icon">
-                            <i class="fas fa-mobile-alt"></i>
-                        </div>
+                        <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
                         <h3>Diseño Responsivo</h3>
                         <p>Funciona perfectamente en todos los dispositivos y tamaños.</p>
                     </div>
@@ -218,12 +189,11 @@
         </section>
     </div>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <h2 id="contact">📞 Contacto</h2>
             <p>¿Tienes preguntas o sugerencias? ¡Contáctanos!</p>
-            
+
             <div class="social-links">
                 <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
@@ -231,16 +201,14 @@
                 <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
                 <a href="#" class="social-link"><i class="fab fa-github"></i></a>
             </div>
-            
+
             <p>&copy; 2024 MiSitio Pro. Todos los derechos reservados.</p>
         </div>
     </footer>
 
-    <!-- Pelota rebotando -->
     <div class="bouncing-ball" id="ball"></div>
     <div class="ball-shadow" id="shadow"></div>
 
-    <!-- Script de la página -->
-    <script src="script.js"></script> <!-- Enlace al archivo JavaScript externo -->
+    <script src="script.js"></script>
 </body>
 </html>
