@@ -533,3 +533,5 @@ function typeWriterEffect() {
     }
     type();
 }
+
+// Haremos mejoras para optimizar el js
