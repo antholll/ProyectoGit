@@ -911,9 +911,10 @@ input[type="range"] {
 .theme-high-contrast-btn {
     background: linear-gradient(135deg, #ffff00, #ff00ff);
     color: black;
-    border: 2px solid var(--border-color);
+    border: 4px solid var(--border-color);
     cursor: pointer;
     transition: box-shadow 0.3s ease;
+    text-align: center;
 }
 
 .theme-high-contrast-btn:hover {
