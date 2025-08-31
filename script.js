@@ -535,3 +535,5 @@ function typeWriterEffect() {
 }
 
 // Haremos mejoras para optimizar el js
+
+// Se ordeno el JAVASCRIPT
