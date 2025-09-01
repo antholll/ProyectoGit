@@ -881,7 +881,12 @@ input[type="range"] {
     animation-timing-function: ease-out;
     animation-name: fadeInOptimized;
     animation-duration: 0.6s;
+    /* Mejora: transición para cambios posteriores */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    /* Opcional: retraso para escalonar animaciones */
+    /* animation-delay: var(--fade-delay, 0s); */
 }
+
 
 @keyframes fadeInOptimized {
     to {
