@@ -823,10 +823,18 @@ input[type="range"] {
 
 /* Indicador de modo auto */
 .auto-indicator {
-    font-size: 0.8em;
-    margin-top: 5px;
-    color: var(--primary-color);
-    font-weight: bold;
+    font-size: 0.85em;
+    margin-top: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #fff;
+    background: var(--primary-color);
+    padding: 4px 12px;
+    border-radius: 12px;
+    display: inline-block;
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.4);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Color boxes */
