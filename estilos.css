@@ -430,10 +430,14 @@ p {
 /* Estadísticas Animadas */
 .stats-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* un poco más ancho mínimo */
+    gap: 24px; /* espacio ligeramente mayor para mejor separación */
     margin: 40px 0;
+    padding: 0 10px; /* pequeño padding lateral para que no toque bordes en pantallas pequeñas */
+    align-items: start; /* alinea los items al inicio para mejor orden */
+    transition: all 0.3s ease;
 }
+
 
 .stat-card {
     background: var(--card-bg);
