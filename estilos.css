@@ -480,8 +480,17 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px;
-    margin-top: 15px;
+    gap: 24px; /* un poco más de espacio para mejor separación */
+    margin-top: 20px; /* margen superior ligeramente aumentado */
+    padding: 10px 0;
+    background: rgba(255, 255, 255, 0.1); /* fondo sutil para destacar controles */
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.player-controls:hover {
+    background: rgba(255, 255, 255, 0.15);
 }
 
 .player-btn {
