@@ -359,13 +359,17 @@ input:checked + .slider:before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.85); /* fondo un poco más oscuro */
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 2000;
     animation: fadeIn 0.5s ease-out;
+    backdrop-filter: blur(6px); /* desenfoque para mejor foco */
+    -webkit-backdrop-filter: blur(6px); /* soporte Safari */
+    transition: background-color 0.3s ease;
 }
+
 
 .modal-content {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
