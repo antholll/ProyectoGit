@@ -345,11 +345,13 @@ input:checked + .slider:before {
 }
 
 .hamburger span {
-    width: 25px;
-    height: 3px;
+    width: 28px;               /* ligeramente más ancho para mejor visibilidad */
+    height: 3.5px;             /* un poco más grueso para un aspecto más sólido */
     background: var(--text-color);
     transition: all 0.3s ease;
-    border-radius: 2px;
+    border-radius: 3px;        /* bordes un poco más redondeados para suavidad */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* sombra sutil para profundidad */
+    display: block;            /* asegurar que cada span sea bloque para evitar problemas */
 }
 
 /* Modal de Bienvenida */
