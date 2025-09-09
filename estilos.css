@@ -290,14 +290,24 @@ input:checked + .slider:before {
 }
 
 .logo {
-    font-size: 1.8em;
-    font-weight: bold;
+    font-size: 1.9em; /* ligeramente más grande para mayor presencia */
+    font-weight: 900; /* más negrita para destacar */
     color: var(--primary-color);
     text-decoration: none;
     display: flex;
     align-items: center;
-    transition: color 0.3s ease;
+    gap: 8px; /* espacio entre icono y texto si hay */
+    transition: color 0.3s ease, transform 0.3s ease;
+    cursor: pointer; /* indica que es interactivo */
 }
+
+.logo:hover,
+.logo:focus {
+    color: var(--primary-color-dark, #005f73); /* color más oscuro al pasar el mouse */
+    transform: scale(1.05); /* ligero aumento para efecto dinámico */
+    outline: none; /* elimina el contorno por defecto */
+}
+
 
 .logo i {
     margin-right: 10px;
