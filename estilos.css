@@ -287,6 +287,10 @@ input:checked + .slider:before {
     justify-content: space-between;
     align-items: center;
     height: 70px;
+    padding: 0 20px; /* añade espacio lateral para mejor separación en pantallas pequeñas */
+    box-sizing: border-box; /* asegura que el padding no aumente el ancho total */
+    background-color: var(--nav-background, transparent); /* opción para fondo si se desea */
+    transition: background-color 0.3s ease;
 }
 
 .logo {
