@@ -230,8 +230,18 @@ input:checked + .slider:before {
     top: 50%;
     transform: translateY(-50%);
     color: var(--primary-color);
-    font-size: 1.2em;
+    font-size: 1.3em; /* ligeramente más grande para mejor visibilidad */
+    cursor: pointer; /* indica que es interactivo */
+    transition: color 0.3s ease, transform 0.3s ease;
 }
+
+.search-icon:hover,
+.search-icon:focus {
+    color: var(--primary-color-dark, #004a99); /* color más oscuro al interactuar */
+    transform: translateY(-50%) scale(1.1); /* ligero aumento para efecto dinámico */
+    outline: none; /* elimina el contorno por defecto */
+}
+
 
 .search-results {
     position: absolute;
