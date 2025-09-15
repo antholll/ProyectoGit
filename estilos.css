@@ -133,7 +133,11 @@ body {
     box-shadow: 0 0 15px var(--primary-color);
 }
 
-.theme-default { background: linear-gradient(135deg, #ff6b6b, #4ecdc4); color: white; }
+.theme-default {
+    background: linear-gradient(135deg, #43cea2, #185a9d); /* verde azulado a azul oscuro */
+    color: #f0f0f0; /* blanco suave */
+}
+
 .theme-dark-btn { 
     background: linear-gradient(135deg, #000000, #2a2a2a); 
     color: white;
