@@ -178,15 +178,14 @@ body {
 
 .slider {
     position: absolute;
+    inset: 0; /* simplifica top, right, bottom, left */
     cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
     background-color: #ccc;
-    transition: .4s;
     border-radius: 24px;
+    transition: background-color 0.4s ease;
+    will-change: background-color; /* mejora rendimiento en animaciones */
 }
+
 
 .slider:before {
     position: absolute;
