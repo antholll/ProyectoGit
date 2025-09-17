@@ -158,9 +158,12 @@ body {
 
 .auto-label {
     font-size: 0.9em;
-    margin-right: 8px;
+    margin-right: 0.5rem; /* usa unidad relativa para mejor escalabilidad */
     color: var(--text-color);
     font-weight: 500;
+    line-height: 1.4; /* mejora legibilidad */
+    user-select: none; /* evita selección accidental del texto */
+    transition: color 0.3s ease; /* para cambios suaves si el color varía */
 }
 
 .switch {
