@@ -165,13 +165,19 @@ body {
     user-select: none; /* evita selección accidental del texto */
     transition: color 0.3s ease; /* para cambios suaves si el color varía */
 }
-
 .switch {
     position: relative;
     display: inline-block;
     width: 50px;
     height: 24px;
+    border-radius: 12px; /* bordes redondeados para mejor estética */
+    background-color: var(--switch-bg, #ccc); /* color de fondo configurable */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    user-select: none; /* evita selección accidental */
+    box-sizing: border-box; /* asegura que padding y border no aumenten tamaño */
 }
+
 
 .switch input {
     opacity: 0;
