@@ -366,9 +366,11 @@ input:checked + .slider:before {
     text-decoration: none;
     color: var(--text-color);
     font-weight: 500;
-    transition: all 0.3s ease;
+    padding: 0.3125rem 0; /* equivalente a 5px usando unidad relativa */
     position: relative;
-    padding: 5px 0;
+    transition: color 0.3s ease, transform 0.3s ease; /* transición específica para mejor rendimiento */
+    cursor: pointer; /* indica interactividad */
+    user-select: none; /* evita selección accidental del texto */
 }
 
 .nav-link:hover {
