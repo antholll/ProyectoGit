@@ -359,7 +359,11 @@ input:checked + .slider:before {
 .nav-menu {
     display: flex;
     list-style: none;
-    gap: 30px;
+    margin: 0;
+    padding: 0;
+    gap: 2rem; /* equivalente a 30px, usando unidad relativa para mejor escalabilidad */
+    align-items: center; /* alinea verticalmente los elementos */
+    box-sizing: border-box; /* asegura que padding y border no afecten el tamaño */
 }
 
 .nav-link {
