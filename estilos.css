@@ -379,7 +379,10 @@ input:checked + .slider:before {
 
 .nav-link:hover {
     color: var(--primary-color);
+    transform: translateY(-1px); /* sutil elevación para mejor feedback visual */
+    transition: color 0.3s ease, transform 0.3s ease; /* transición suave para el cambio */
 }
+
 
 .nav-link::after {
     content: '';
