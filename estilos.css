@@ -333,7 +333,7 @@ input:checked + .slider:before {
 }
 
 .logo {
-    font-size: 1.9em; /* ligeramente más grande para mayor presencia */
+    font-size: 1.8em; /* ligeramente más grande para mayor presencia */
     font-weight: 900; /* más negrita para destacar */
     color: var(--primary-color);
     text-decoration: none;
