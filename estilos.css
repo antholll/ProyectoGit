@@ -312,7 +312,7 @@ input:checked + .slider:before {
     width: 100%;
     background: var(--navbar-bg);
     backdrop-filter: blur(10px);
-    box-shadow: 0 2px 20px var(--shadow-color);
+    box-shadow: 0 3px 20px var(--shadow-color);
     z-index: 1000;
     padding: 0 20px;
     transition: all 0.3s ease;
