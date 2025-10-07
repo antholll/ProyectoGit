@@ -407,7 +407,7 @@ input:checked + .slider:before {
 }
 
 .hamburger span {
-    width: 30px;               /* ligeramente más ancho para mejor visibilidad */
+    width: 44px;               /* ligeramente más ancho para mejor visibilidad */
     height: 3.5px;             /* un poco más grueso para un aspecto más sólido */
     background: var(--text-color);
     transition: all 0.3s ease;
