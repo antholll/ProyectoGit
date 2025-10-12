@@ -452,7 +452,7 @@ input:checked + .slider:before {
 /* Contenido Principal */
 .main-content {
     max-width: 1200px;
-    margin: 44px auto;
+    margin: 45px auto;
     padding: 20px;
     position: relative;
     z-index: 2;
