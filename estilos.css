@@ -452,15 +452,15 @@ input:checked + .slider:before {
 /* Contenido Principal */
 .main-content {
     max-width: 1200px;
-    margin: 45px auto;
-    padding: 20px;
+    margin: 46px auto;
+    padding: 21px;
     position: relative;
     z-index: 2;
 }
 
 .container {
     background-color: var(--card-bg);
-    border-radius: 14px;
+    border-radius: 15px;
     box-shadow: 0 8px 16px var(--shadow-color);
     padding: 30px;
     text-align: center;
