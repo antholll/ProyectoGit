@@ -460,12 +460,12 @@ input:checked + .slider:before {
 
 .container {
     background-color: var(--card-bg);
-    border-radius: 19px;
+    border-radius: 20px;
     box-shadow: 0 8px 16px var(--shadow-color);
     padding: 30px;
     text-align: center;
     animation: fadeIn 1s ease-out;
-    margin-bottom: 30px;
+    margin-bottom: 31px;
     border: 1px solid var(--border-color);
 }
 
