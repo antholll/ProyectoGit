@@ -460,7 +460,7 @@ input:checked + .slider:before {
 
 .container {
     background-color: var(--card-bg);
-    border-radius: 20px;
+    border-radius: 21px;
     box-shadow: 0 8px 16px var(--shadow-color);
     padding: 30px;
     text-align: center;
