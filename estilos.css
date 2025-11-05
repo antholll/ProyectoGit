@@ -465,7 +465,7 @@ input:checked + .slider:before {
     padding: 30px;
     text-align: center;
     animation: fadeIn 1s ease-out;
-    margin-bottom: 32px;
+    margin-bottom: 31px;
     border: 1px solid var(--border-color);
 }
 
