@@ -499,7 +499,7 @@ p {
 .stats-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* un poco más ancho mínimo */
-    gap: 24px; /* espacio ligeramente mayor para mejor separación */
+    gap: 25px; /* espacio ligeramente mayor para mejor separación */
     margin: 42px 0;
     padding: 0 10px; /* pequeño padding lateral para que no toque bordes en pantallas pequeñas */
     align-items: start; /* alinea los items al inicio para mejor orden */
