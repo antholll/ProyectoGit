@@ -1,0 +1,12 @@
+name: Mi Primer CI
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Revisando el código
+        uses: actions/checkout@v3
+      
+      - name: Validacion de Integracion
+        run: echo "¡El código compila y se integra correctamente!"
