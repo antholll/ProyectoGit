@@ -510,7 +510,7 @@ p {
 .stat-card {
     background: var(--card-bg);
     padding: 37px;
-    border-radius: 17px;
+    border-radius: 18px;
     text-align: center;
     box-shadow: 0 5px 15px var(--shadow-color);
     border: 1px solid var(--border-color);
