@@ -536,7 +536,7 @@ p {
 /* Reproductor de Audio */
 .audio-player {
     background: var(--card-bg);
-    padding: 21px;
+    padding: 22px;
     border-radius: 15px;
     margin: 30px 0;
     box-shadow: 0 5px 15px var(--shadow-color);
