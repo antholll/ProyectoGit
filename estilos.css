@@ -537,7 +537,7 @@ p {
 .audio-player {
     background: var(--card-bg);
     padding: 24px;
-    border-radius: 15px;
+    border-radius: 16px;
     margin: 30px 0;
     box-shadow: 0 5px 15px var(--shadow-color);
     border: 1px solid var(--border-color);
